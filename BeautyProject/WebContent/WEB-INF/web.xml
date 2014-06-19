@@ -4,12 +4,19 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>BeautyProject</display-name>
+	<!-- 设置控制中心 -->
+	<servlet>
+		<servlet-name>beautyProj</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 服务器启动则开始加载控制中心的相关参数 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- 设置哪些请求提交由Servlet进行处理，在此处设置一个映射 -->
+	<servlet-mapping>
+		<servlet-name>beautyProj</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>login.do</welcome-file>
 	</welcome-file-list>
 </web-app>
