@@ -37,7 +37,7 @@ public class UserController {
         for (Iterator iterator = users.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
             User u = users.get(key);
-            System.out.println(key+" "+u.getUsername()+" "+u.getPassword());
+            System.out.println(key + " " + u.getUsername() + " " + u.getPassword());
         }
         model.addAttribute("users", users);
         return "user/list";
@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerEnd(@Validated User user, BindingResult br) {
+    public String register(@Validated User user, BindingResult br) {
         if (br.hasErrors()) {
             return "user/register";
         }
@@ -62,8 +62,8 @@ public class UserController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String showUser(@PathVariable String username, Model model) {
         System.out.println(username);
-        if(users.get(username) == null){
-            System.out.println("从MAP中取出用户名为"+username+"的用户对象User为空");
+        if (users.get(username) == null) {
+            System.out.println("从MAP中取出用户名为" + username + "的用户对象User为空");
         }
         model.addAttribute(users.get(username));
         return "user/show";
@@ -84,4 +84,9 @@ public class UserController {
         return "redirect:/user/users";
     }
 
+    @RequestMapping(value = "/{username}/delete", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String username) {
+        users.remove(username);
+        return "redirect:/user/users";
+    }
 }
