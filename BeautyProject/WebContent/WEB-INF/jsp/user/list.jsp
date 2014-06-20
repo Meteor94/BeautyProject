@@ -10,7 +10,7 @@
 <body>
 <a href="register">注册新用户</a><br>
 	<c:forEach items="${users }" var="um">
-		${um.value.username }----${um.value.password }<br>
+		<a href="${um.value.username }">${um.value.username }</a> <a href="${um.value.username}/update">修改信息</a><br>
 	</c:forEach>
 </body>
 </html>
