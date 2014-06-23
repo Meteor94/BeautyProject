@@ -16,5 +16,6 @@
 		<a href="${um.value.username}/delete">删除信息</a>
 		<br>
 	</c:forEach>
+	<h1>Count:${message }</h1>
 </body>
 </html>
