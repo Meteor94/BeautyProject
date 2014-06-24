@@ -7,15 +7,38 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户列表</title>
 </head>
-<body>
-	<a href="register">注册新用户</a>
-	<br>
-	<c:forEach items="${users }" var="um">
-		<a href="${um.value.username }">${um.value.username }</a>
-		<a href="${um.value.username}/update">修改信息</a>
-		<a href="${um.value.username}/delete">删除信息</a>
-		<br>
-	</c:forEach>
-	<h1>Count:${message }</h1>
+<body style="font:微软雅黑">
+	<table width="700" align="center" border="1">
+		<tr>
+			<td>用户ID</td>
+			<td>用户名</td>
+			<td>用户密码</td>
+			<td>用户邮箱</td>
+			<td>操作</td>
+		</tr>
+		<c:if test="${pagers.total le 0 }">
+			<tr>
+				<td colspan="6">目前还没有用户数据</td>
+			</tr>
+		</c:if>
+		<c:if test="${pagers.total gt 0}">
+			<c:forEach items="${pagers.datas }" var="u">
+				<tr>
+					<td>${u.id }</td>
+					<td>${u.username }</td>
+					<td>${u.password }</td>
+					<td>${u.email }</td>
+					<td><a href="${u.id }/update">更新</a>&nbsp;<a
+						href="${u.id }/delete">删除</a></td>
+				</tr>
+			</c:forEach>
+			<tr>
+				<td colspan="6"><jsp:include page="/inc/pager.jsp">
+						<jsp:param value="users" name="url" />
+						<jsp:param value="${pagers.total}" name="items" />
+					</jsp:include></td>
+			</tr>
+		</c:if>
+	</table>
 </body>
 </html>

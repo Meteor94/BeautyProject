@@ -25,38 +25,50 @@ public class UserController {
     @RequestMapping(value = {"/users","/"}, method = RequestMethod.GET)
     public String list(Model model) {
         logger.info("调用用户列表界面");
-        model.addAttribute("message", userService.userCount());
+        model.addAttribute("pagers", userService.getUserPager());
         return "user/list";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         logger.info("调取注册页面！");
+        model.addAttribute(new User());
         return "user/register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@Validated User user, BindingResult br) {
-        return "redirect:/user/users";
+        logger.info("用户提交注册的用户信息！");
+        if(br.hasErrors()){
+            return "user/register";
+        }else{
+            System.out.println(user.getUsername()+"   "+user.getPassword()+"   "+user.getEmail());
+            userService.add(user);
+            return "redirect:/user/users";
+        }
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String showUser(@PathVariable String username, Model model) {
+        logger.info("查看用户资料");
         return "user/show";
     }
 
     @RequestMapping(value = "/{username}/update", method = RequestMethod.GET)
     public String updateUser(@PathVariable String username, Model model) {
+        logger.info("调取用户资料编辑页面");
         return "user/update";
     }
 
     @RequestMapping(value = "/{username}/update", method = RequestMethod.POST)
     public String updateUser(@PathVariable String username, @Validated User user, BindingResult br) {
+        logger.info("更新用户资料提交信息");
         return "redirect:/user/users";
     }
 
     @RequestMapping(value = "/{username}/delete", method = RequestMethod.GET)
     public String deleteUser(@PathVariable String username) {
+        logger.info("删除用户信息！用户名："+username);
         return "redirect:/user/users";
     }
 }

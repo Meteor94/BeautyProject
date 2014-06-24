@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "T_USER")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "FID")
     private Integer id;
 
