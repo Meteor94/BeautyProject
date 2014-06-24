@@ -9,7 +9,6 @@
 	<configs>
 		<config>src/beautyProj-servlet.xml</config>
 		<config>src/spring-hibernate.xml</config>
-		<config>src/spring-bean.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
