@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
@@ -11,6 +9,9 @@
 
 	<!-- 设定Spring去哪些包里面寻找Annotation -->
 	<context:component-scan base-package="com.beautyProj" />
+	<!-- 基于注释的事务，当注释中发现@Transactional时，使用id为“transactionManager”的事务管理器 -->
+	<!-- 如果没有设置transaction-manager的值，则spring以缺省默认的事务管理器来处理事务，默认事务管理器为第一个加载的事务管理器 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
@@ -18,11 +19,11 @@
 	</bean>
 	<bean id="exceptionResolver"
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-	<property name="exceptionMappings">
-		<props>
-			<prop key="com.beautyProj.exception" >error</prop>
-		</props>
-	</property>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.beautyProj.exception">error</prop>
+			</props>
+		</property>
 	</bean>
 	<mvc:annotation-driven />
 </beans>

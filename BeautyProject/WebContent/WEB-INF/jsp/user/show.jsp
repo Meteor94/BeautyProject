@@ -11,6 +11,7 @@
 		<h2>
 		用户名：${user.username}<br>
 		密码：${user.password }<br>
+		Email:${user.email }<br>
 		</h2>
 		<a href="users">返回用户列表</a>
 </body>

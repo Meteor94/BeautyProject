@@ -3,22 +3,26 @@ package com.beautyProj.dao;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import com.beautyProj.model.Pager;
 import com.beautyProj.model.SystemContext;
 import com.beautyProj.model.User;
+@Transactional
 @Repository("userDao")
 public class UserDao {
-    @Resource
+    @Resource(name="sessionFactory")
     private SessionFactory sessionFactory;
 
     public void add(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
     }
 
     public void delete(int id) {

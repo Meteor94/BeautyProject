@@ -1,6 +1,7 @@
 package com.beautyProj.controller;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,21 +22,22 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Resource
     private UserService userService;
-    
+    @Transactional
     @RequestMapping(value = {"/users","/"}, method = RequestMethod.GET)
     public String list(Model model) {
         logger.info("调用用户列表界面");
+        
         model.addAttribute("pagers", userService.getUserPager());
         return "user/list";
     }
-
+    
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {
         logger.info("调取注册页面！");
         model.addAttribute(new User());
         return "user/register";
     }
-
+    @Transactional
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@Validated User user, BindingResult br) {
         logger.info("用户提交注册的用户信息！");
@@ -48,24 +50,26 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public String showUser(@PathVariable String username, Model model) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String showUser(@PathVariable String id, Model model) {
         logger.info("查看用户资料");
+        User u=userService.load(Integer.parseInt(id));
+        model.addAttribute(u);
         return "user/show";
     }
-
+    @Transactional
     @RequestMapping(value = "/{username}/update", method = RequestMethod.GET)
     public String updateUser(@PathVariable String username, Model model) {
         logger.info("调取用户资料编辑页面");
         return "user/update";
     }
-
+    @Transactional
     @RequestMapping(value = "/{username}/update", method = RequestMethod.POST)
     public String updateUser(@PathVariable String username, @Validated User user, BindingResult br) {
         logger.info("更新用户资料提交信息");
         return "redirect:/user/users";
     }
-
+    @Transactional
     @RequestMapping(value = "/{username}/delete", method = RequestMethod.GET)
     public String deleteUser(@PathVariable String username) {
         logger.info("删除用户信息！用户名："+username);

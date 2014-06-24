@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "T_USER")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "FID")
     private Integer id;
 
@@ -26,7 +26,7 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -64,5 +64,10 @@ public class User {
 
     public User() {
         super();
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", user_name=" + username + ", password=" + password + ", email=" + email + "]";
     }
 }

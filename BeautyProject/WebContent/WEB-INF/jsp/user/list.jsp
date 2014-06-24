@@ -25,7 +25,7 @@
 			<c:forEach items="${pagers.datas }" var="u">
 				<tr>
 					<td>${u.id }</td>
-					<td>${u.username }</td>
+					<td><a href="${u.id}">${u.username }</a></td>
 					<td>${u.password }</td>
 					<td>${u.email }</td>
 					<td><a href="${u.id }/update">更新</a>&nbsp;<a

@@ -4,6 +4,7 @@ package com.beautyProj.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,12 @@ import com.beautyProj.dao.UserDao;
 import com.beautyProj.exception.UserException;
 import com.beautyProj.model.Pager;
 import com.beautyProj.model.User;
+@Transactional
 @Service("userService")
 public class UserService {
     @Resource
     private UserDao userDao;
+    
     public void add(User user){
         User u=userDao.getUser(user.getUsername());
         if(u!=null){
