@@ -22,14 +22,6 @@ public class UserController {
     @Resource
     private UserService userService;
     
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
     @RequestMapping(value = {"/users","/"}, method = RequestMethod.GET)
     public String list(Model model) {
         logger.info("调用用户列表界面");

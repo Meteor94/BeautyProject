@@ -14,12 +14,4 @@ public class UserService {
     public int userCount(){
         return userDao.getAllUser().size();
     }
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-    
 }
