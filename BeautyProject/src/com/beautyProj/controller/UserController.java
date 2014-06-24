@@ -58,21 +58,26 @@ public class UserController {
         return "user/show";
     }
     @Transactional
-    @RequestMapping(value = "/{username}/update", method = RequestMethod.GET)
-    public String updateUser(@PathVariable String username, Model model) {
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
+    public String updateUser(@PathVariable String id, Model model) {
         logger.info("调取用户资料编辑页面");
+        User u=userService.load(Integer.parseInt(id));
+        model.addAttribute(u);
         return "user/update";
     }
     @Transactional
-    @RequestMapping(value = "/{username}/update", method = RequestMethod.POST)
-    public String updateUser(@PathVariable String username, @Validated User user, BindingResult br) {
+    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    public String updateUser(@PathVariable String id, @Validated User user, BindingResult br) {
         logger.info("更新用户资料提交信息");
+        user.setId(Integer.parseInt(id));
+        userService.update(user);
         return "redirect:/user/users";
     }
     @Transactional
-    @RequestMapping(value = "/{username}/delete", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable String username) {
-        logger.info("删除用户信息！用户名："+username);
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable String id) {
+        logger.info("删除用户信息！用户ID："+id);
+        userService.delete(Integer.parseInt(id));
         return "redirect:/user/users";
     }
 }
